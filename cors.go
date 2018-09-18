@@ -79,7 +79,8 @@ func DefaultConfig() Config {
 	return Config{
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type"},
-		AllowCredentials: false,
+		AllowCredentials: true,
+		AllowOriginFunc:  func(origin string) bool { return true },
 		MaxAge:           12 * time.Hour,
 	}
 }
@@ -87,7 +88,6 @@ func DefaultConfig() Config {
 // Default returns the location middleware with default configuration.
 func Default() gin.HandlerFunc {
 	config := DefaultConfig()
-	config.AllowAllOrigins = true
 	return New(config)
 }
 

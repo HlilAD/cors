@@ -32,6 +32,9 @@ func newCors(config Config) *cors {
 
 func (cors *cors) applyCors(c *gin.Context) {
 	origin := c.Request.Header.Get("Origin")
+	if origin == "" {
+		origin = "*"
+	}
 	// if len(origin) == 0 {
 	// 	// request is not a CORS request
 	// 	return
